@@ -47,6 +47,33 @@ namespace DOTNET_RPG.Services
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<Character>> UpdateCharacter(Character updatedCharacter)
+        {
+
+            var serviceResponse = new ServiceResponse<Character>();
+            try
+            {
+            
+            var character = characters.FirstOrDefault(c => c.Id == updatedCharacter.Id);
+            if (character == null)
+            {
+                throw new Exception($"Character with Id '{updatedCharacter.Id}' not found");
+            }
+            character.Name = updatedCharacter.Name;
+            character.HitPoints = updatedCharacter.HitPoints;
+            character.Strength = updatedCharacter.Strength;
+            character.Skill = updatedCharacter.Skill;
+            character.Agility = updatedCharacter.Agility;
+            character.Class = updatedCharacter.Class;
+            serviceResponse.Data = character;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
    
     }
 }
