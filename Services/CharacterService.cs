@@ -21,6 +21,8 @@ namespace DOTNET_RPG.Services
         public async Task<ServiceResponse<List<Character>>> AddCharacter(Character newCharacter)
         {
             var serviceResponse = new ServiceResponse<List<Character>>();
+            var id = characters.Max(c => c.Id) + 1;
+            newCharacter.Id = id;
             characters.Add(newCharacter);
             serviceResponse.Data = characters;
             return serviceResponse;
